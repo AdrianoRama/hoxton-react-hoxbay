@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../styles/index.css"
 
 const randColour = () =>
@@ -9,22 +10,22 @@ function Header() {
       className="header"
       style={{ ["--border-colour"]: `var(--${randColour()})` }}
     >
-      <div className="header__logo" style={{ color: `var(--${randColour()})` }}>
+      <Link to='/products'><div className="header__logo" style={{ color: `var(--${randColour()})` }}>
         Hoxbay
-      </div>
+      </div></Link>
       <nav className="header__nav">
         <ul>
           <li>
             {/* Create here a link to this page */}
-            Home
+            <Link to="/products">Home</Link>
           </li>
           <li>
             {/* Create here a link to this page */}
-            Categories
+            <Link to="/categories">Categories</Link>
           </li>
           <li>
             {/* Create here a link to this page */}
-            Basket
+            <Link to="/basket">Basket</Link>
           </li>
         </ul>
       </nav>

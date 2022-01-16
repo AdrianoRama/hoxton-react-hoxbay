@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom"
 
 
 function Product(props) {
     const product = props.product
     return (<>
-        <img src={product.image} />
-        <h3>{product.title}</h3></>
+        <Link to='/products/1'><img src={product.image} />
+            <h3>{product.title}</h3></Link></>
     )
 }
 
