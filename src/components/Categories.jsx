@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 const randColour = () =>
     ["green", "red", "blue", "yellow"][Math.floor(Math.random() * 4)];
@@ -11,9 +12,9 @@ function Category(props) {
     const category = props.category
     const categoryProducts = props.categoryProducts
     // console.log(categoryProducts)
-    return <a style={{ ["--random-colour"]: `var(--${randColour()})` }}>
+    return <Link to={`/categories/${category.id}`} style={{ ["--random-colour"]: `var(--${randColour()})` }}>
         {category.name}
-    </a>
+    </Link>
 }
 
 function CategoriesList(props) {
@@ -27,7 +28,7 @@ function CategoriesList(props) {
 }
 export default function Categories(props) {
     return (
-        <div className="categories-container__list"  >
-            <CategoriesList categories={props.categories} products={props.products} /></div>
+        <Link to='/categories/1'><div className="categories-container__list"  >
+            <CategoriesList categories={props.categories} products={props.products} /></div></Link>
     )
 }

@@ -1,38 +1,74 @@
+import { useEffect } from "react"
+import { useState } from "react/cjs/react.development"
 
 
-export default function Basket() {
+export default function BasketItems(props) {
+    const basketItems = props.basketItems
+
+    const [basketTotal, setBasketTotal] = useState(basketItems[0].price)
+
+    console.log(basketTotal)
+
+    const updatedBasketItems = basketItems.map(item => <BasketItem basketTotal={basketTotal} setBasketTotal={setBasketTotal} item={item} />)
+
     return (
         <main>
             <section className="basket-container">
                 <h2>Your Basket</h2>
                 <ul>
-                    {/* <!-- Basket Item --> */}
-                    <li>
-                        <article className="basket-container__item">
-                            <img
-                                src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-                                alt="Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops"
-                                width="90"
-                            />
-                            <p>Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops</p>
-                            <p>
-                                Qty:
-                                <select
-                                ><option value="0">0</option
-                                ><option value="1">1</option
-                                ><option value="2">2</option
-                                ><option value="3">3</option></select
-                                >
-                            </p>
-                            {/* <!-- The item total is calculated using the Qty selected value --> */}
-                            <p>Item total: £109.95</p>
-                        </article>
-                    </li>
-                    {/* <!--  --> */}
+                    {updatedBasketItems}
                 </ul>
-                {/* <!-- Basket total is calculated using each item's total from above --> */}
-                <h3>Your total: £109.95</h3>
+                <h3>Your total: £{basketTotal}</h3>
             </section>
         </main>
+
+    )
+}
+
+function BasketItem(props) {
+    const item = props.item
+    const basketTotal = props.basketTotal
+    const setBasketTotal = props.setBasketTotal
+
+    console.log(basketTotal)
+
+    const [itemTotal, setItemTotal] = useState(item.price)
+    const [qty, setQty] = useState(0)
+
+    function calculateTotal(selectValue) {
+        setItemTotal(selectValue * item.price)
+    }
+
+    function getTotal() {
+        setBasketTotal(basketTotal + itemTotal)
+    }
+
+    return (
+        <>
+            < li >
+                <article className="basket-container__item">
+                    <img
+                        src={item.image}
+                        width="90"
+                    />
+                    <p>{item.title}</p>
+                    <p>
+                        Qty:
+                        <select onChange={(e) => {
+                            setQty(e.target.value)
+                            calculateTotal(e.target.value)
+                            getTotal()
+                        }
+                        }><option value="0">0</option
+                        ><option selected value="1">1</option
+                        ><option value="2">2</option
+                        ><option value="3">3</option></select
+                        >
+                    </p>
+                    <p>Item total: £{itemTotal}</p>
+                </article>
+            </li >
+
+        </>
     )
 }
